@@ -28,6 +28,58 @@ require("lazy").setup({
   },
   install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true }, -- automatically check for plugin updates
+  ui = {
+    -- a number <1 is a percentage., >1 is a fixed size
+    size = { width = 0.8, height = 0.8 },
+    wrap = true, -- wrap the lines in the ui
+    -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
+    border = "none",
+    icons = {
+      cmd = "גּ",
+      lazy = "鈴",
+      config = "漣",
+      event = "",
+      ft = "",
+      init = "漣",
+      import = "",
+      keys = "",
+      loaded = "●",
+      not_loaded = "○",
+      plugin = "ﮣ",
+      runtime = "",
+      source = "",
+      start = "",
+      task = "",
+      list = {
+        "●",
+        "➜",
+        "★",
+        "‒",
+      },
+    },
+    -- leave nil, to automatically select a browser depending on your OS.
+    -- If you want to use a specific browser, you can define it here
+    browser = nil, ---@type string?
+    throttle = 20, -- how frequently should the ui process render events
+    custom_keys = {
+      -- you can define custom key maps here.
+      -- To disable one of the defaults, set it to false
+
+      -- open lazygit log
+    ["<localleader>l"] = function(plugin)
+        require("lazy.util").float_term({ "lazygit", "log" }, {
+          cwd = plugin.dir,
+        })
+      end,
+
+      -- open a terminal for the plugin dir
+      ["<localleader>t"] = function(plugin)
+        require("lazy.util").float_term(nil, {
+          cwd = plugin.dir,
+        })
+      end,
+    },
+  },
   performance = {
     rtp = {
       -- disable some rtp plugins
